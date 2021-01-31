@@ -1,6 +1,7 @@
 package com.satriakurniawan.chickenbreastrecipe.ui.main
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,17 +12,15 @@ import com.google.gson.Gson
 import com.satriakurniawan.chickenbreastrecipe.R
 import com.satriakurniawan.chickenbreastrecipe.model.RecipeResult
 import com.satriakurniawan.chickenbreastrecipe.network.ApiRepository
+import com.satriakurniawan.chickenbreastrecipe.ui.detail.DetailRecipeActivity
 import org.jetbrains.anko.intentFor
 
 class MainActivity : AppCompatActivity(), MainInfoView {
-
-//    private var modelList: MutableList<MainModel> = mutableListOf()
 
     private var list = ArrayList<MainModel>()
 
     private lateinit var presenter: MainInfoPresenter
 
-    private lateinit var mainAdapter: MainAdapter
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +40,18 @@ class MainActivity : AppCompatActivity(), MainInfoView {
 
         mainAdapter.setOnItemClickCallback(object : MainAdapter.OnItemClickCallback {
             override fun onItemClicked(data: MainModel) {
+                intenttoDetail(data.id)
             }
         })
     }
 
+    private fun intenttoDetail(id : String) {
+        val intent = Intent(this, DetailRecipeActivity::class.java)
+        intent.putExtra("id",id)
+        startActivity(intent)
+    }
+
     override fun showMainInfo(data: List<RecipeResult>) {
-        Log.d("disini", "showMainInfo: ")
-        Log.d("tes isinya", "showMainInfo: " + data[0].idMeal)
         for (i in data.indices) {
             val meal = MainModel(
                 data[i].idMeal!!, data[i].strMealThumb!!, data[i].strMeal!!
@@ -59,7 +63,7 @@ class MainActivity : AppCompatActivity(), MainInfoView {
 
     private fun setData() {
         presenter = MainInfoPresenter(this, ApiRepository(), Gson())
-        presenter.getInfoLeague()
+        presenter.getInfoMeal()
     }
 
 }

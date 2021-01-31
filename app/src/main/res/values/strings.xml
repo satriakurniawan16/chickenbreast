@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chicken Breast Recipe</string>
+    <string name="title_recipe">Title Recipe</string>
 </resources>

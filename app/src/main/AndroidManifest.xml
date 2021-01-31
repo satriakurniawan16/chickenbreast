@@ -4,7 +4,6 @@
     package="com.satriakurniawan.chickenbreastrecipe">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <dist:module dist:instant="true" />
@@ -16,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChickenBreastRecipe">
+        <activity android:name=".ui.detail.DetailRecipeActivity"></activity>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,31 +1,29 @@
-package com.satriakurniawan.chickenbreastrecipe.ui.main
+package com.satriakurniawan.chickenbreastrecipe.ui.detail
 
 import com.google.gson.Gson
-import com.satriakurniawan.chickenbreastrecipe.model.RecipeData
+import com.satriakurniawan.chickenbreastrecipe.model.RecipeDetailData
 import com.satriakurniawan.chickenbreastrecipe.network.ApiRepository
 import com.satriakurniawan.chickenbreastrecipe.network.ApiRequest
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class MainInfoPresenter(
-    private val mainMealView: MainInfoView,
+class DetailPresenter (
+    private val detailMealView: DetailView,
     private val apiRepository: ApiRepository,
     private val gson: Gson
 ) {
-
-    fun getInfoMeal() {
+    fun getDetailInfoMeal(id: String) {
         doAsync {
             val data = gson.fromJson(
-                apiRepository.doRequest(ApiRequest.getInfoMeal()),
-                RecipeData::class.java
+                apiRepository.doRequest(ApiRequest.getInfoMealbyId(id)),
+                RecipeDetailData::class.java
             )
 
             uiThread {
                 data.meals?.let {
-                    mainMealView.showMainInfo(it)
+                    detailMealView.showDetailInfo(it)
                 }
             }
         }
     }
-
 }
